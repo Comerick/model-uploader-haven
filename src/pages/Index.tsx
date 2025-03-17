@@ -1,8 +1,9 @@
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import FileUploader from "@/components/FileUploader";
 import { Button } from "@/components/ui/button";
-import { LayoutGrid, Plus, Upload, User, Settings } from "lucide-react";
+import { LayoutGrid, Plus, Upload, User, Settings, FileRequest } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 const Index = () => {
@@ -31,6 +32,9 @@ const Index = () => {
           <button className="p-2 bg-[#00FFA3] text-[#1A2133] rounded-md">
             <Plus size={20} />
           </button>
+          <Link to="/request" className="p-2 text-white bg-opacity-20 rounded-md hover:bg-white/10 flex items-center justify-center">
+            <FileRequest size={20} />
+          </Link>
           <button className="p-2 text-white bg-opacity-20 rounded-md hover:bg-white/10">
             <Upload size={20} />
           </button>

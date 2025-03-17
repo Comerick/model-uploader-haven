@@ -1,8 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { UploadCloud } from "lucide-react";
+import { Plus } from "lucide-react";
 
 interface FileUploaderProps {
   onFileSelect?: (file: File) => void;
@@ -13,8 +12,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Supported file types for 3D models
-  const supportedFormats = ['.glb', '.gltf', '.obj', '.fbx'];
+  // Supported file types for 3D models and ZIP files
+  const supportedFormats = ['.zip', '.glb', '.gltf', '.obj', '.fbx'];
   const acceptString = supportedFormats.join(',');
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -72,10 +71,10 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-xl">
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center ${
-          isDragging ? 'border-primary bg-primary/5' : 'border-gray-300'
+          isDragging ? 'border-[#00FFA3] bg-[#00FFA3]/5' : 'border-gray-200'
         } transition-all duration-200 cursor-pointer`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -90,19 +89,15 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect }) => {
           className="hidden"
         />
         <div className="flex flex-col items-center justify-center space-y-4">
-          <UploadCloud className="h-12 w-12 text-gray-400" />
-          <div className="space-y-2">
-            <h3 className="text-lg font-medium">Upload your 3D model</h3>
+          <div className="w-16 h-16 flex items-center justify-center rounded-full">
+            <Plus className="h-12 w-12 text-[#1A2133]" strokeWidth={1.5} />
+          </div>
+          <div className="space-y-1">
+            <h3 className="text-xl font-medium text-[#1A2133]">Drag & Drop to upload</h3>
             <p className="text-sm text-gray-500">
-              Drag and drop your file here, or click to browse
-            </p>
-            <p className="text-xs text-gray-400">
-              Supported formats: {supportedFormats.join(', ')}
+              Supported ZIP archives gltf, glb files inside
             </p>
           </div>
-          <Button variant="outline" onClick={(e) => { e.stopPropagation(); triggerFileInput(); }}>
-            Select file
-          </Button>
         </div>
       </div>
       
